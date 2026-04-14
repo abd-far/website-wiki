@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('anesthesie').catch(() => []);
+const sorted = articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout
+  title="Anesthésie & Obstétrique — Questions cliniques"
+  description="Réponses aux questions sur l'anesthésie obstétricale : vasopresseurs, hypotension spinale, rachianesthésie pour césarienne. Recommandations 2026."
+>
+  <div class="max-w-4xl mx-auto px-4 py-10">
+    <nav class="text-sm text-gray-500 mb-6">
+      <a href="/" class="hover:text-blue-700">Accueil</a>
+      <span class="mx-1">›</span>
+      <span class="text-gray-700">Anesthésie</span>
+    </nav>
+
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">Anesthésie & Obstétrique</h1>
+    <p class="text-gray-500 mb-8">
+      {sorted.length} question{sorted.length !== 1 ? 's' : ''} — vasopresseurs, rachianesthésie, hypotension spinale
+    </p>
+
+    <div class="space-y-3">
+      {sorted.map(article => (
+        <a
+          href={`/anesthesie/${article.data.slug ?? article.slug}`}
+          class="block border border-gray-200 rounded-lg p-4 hover:border-blue-400 hover:shadow-sm transition"
+        >
+          <p class="font-medium text-gray-800 hover:text-blue-700 mb-1">{article.data.title}</p>
+          <div class="flex gap-2 flex-wrap">
+            {article.data.sources.slice(0, 3).map(s => (
+              <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">{s}</span>
+            ))}
+            {article.data.tags.slice(0, 2).map(t => (
+              <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">{t}</span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    {sorted.length === 0 && (
+      <p class="text-gray-400 text-center py-12">Articles à venir — revenez bientôt.</p>
+    )}
+  </div>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const collections = ['diabete', 'anesthesie'] as const;
+  const paths = [];
+
+  for (const category of collections) {
+    try {
+      const articles = await getCollection(category);
+      for (const article of articles) {
+        paths.push({
+          params: {
+            category,
+            slug: article.data.slug ?? article.id,
+          },
+          props: { article, category },
+        });
+      }
+    } catch {
+      // Collection vide ou inexistante
+    }
+  }
+
+  return paths;
+}
+
+const { article, category } = Astro.props;
+const { Content } = await render(article);
+---
+
+<ArticleLayout
+  title={article.data.title}
+  category={category}
+  sources={article.data.sources}
+  date={article.data.date}
+  related={article.data.related}
+  slug={article.data.slug ?? article.id}
+>
+  <Content />
+</ArticleLayout>

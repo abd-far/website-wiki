@@ -1,0 +1,90 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  jsonLd?: object;
+}
+
+const { title, description = "Références cliniques pour médecins généralistes — recommandations 2026", canonicalUrl, jsonLd } = Astro.props;
+const siteUrl = 'https://wiki.abdelouahebfarhi.com';
+const canonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <title>{title} — Wiki Médical</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- JSON-LD structuré -->
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+    <!-- Organisation JSON-LD global -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Wiki Médical — Dr. Abdelouaheb Farhi",
+      "url": siteUrl,
+      "description": "Références cliniques pour médecins généralistes, basées sur les recommandations 2026",
+      "author": {
+        "@type": "Person",
+        "name": "Dr. Abdelouaheb Farhi",
+        "jobTitle": "Médecin praticien"
+      }
+    })} />
+  </head>
+  <body class="bg-white text-gray-900 font-sans">
+    <!-- Navigation -->
+    <header class="border-b border-gray-200 bg-white sticky top-0 z-10">
+      <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="/" class="font-semibold text-blue-700 text-lg hover:text-blue-800">
+          Wiki Médical
+        </a>
+        <nav class="flex gap-6 text-sm text-gray-600">
+          <a href="/diabete/" class="hover:text-blue-700">Diabète</a>
+          <a href="/anesthesie/" class="hover:text-blue-700">Anesthésie</a>
+          <a href="/s-abonner" class="bg-blue-700 text-white px-3 py-1 rounded hover:bg-blue-800 transition">
+            S'abonner
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 mt-16 py-8 text-center text-sm text-gray-500">
+      <div class="max-w-5xl mx-auto px-4">
+        <p class="mb-2">
+          <strong>Dr. Abdelouaheb Farhi</strong> — Médecin praticien
+        </p>
+        <p class="mb-4 text-xs">
+          Ce site est une ressource de référence clinique pour les professionnels de santé.
+          Les informations sont basées sur les recommandations officielles et ne remplacent pas le jugement clinique.
+        </p>
+        <p>
+          <a href="/s-abonner" class="text-blue-700 hover:underline">S'abonner à la newsletter</a>
+          &nbsp;·&nbsp;
+          <a href="https://abdelouahebfarhi.com" class="text-blue-700 hover:underline">abdelouahebfarhi.com</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

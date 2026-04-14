@@ -1,0 +1,17 @@
+---
+export interface Props {
+  sources: string[];
+  date: Date;
+}
+const { sources, date } = Astro.props;
+const formattedDate = date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<div class="flex flex-wrap gap-2 items-center my-4">
+  {sources.map(source => (
+    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
+      {source}
+    </span>
+  ))}
+  <span class="text-xs text-gray-400">· Mis à jour le {formattedDate}</span>
+</div>

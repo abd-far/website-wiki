@@ -1,0 +1,109 @@
+---
+export interface Props {
+  variant?: 'inline' | 'sidebar' | 'hero';
+}
+const { variant = 'inline' } = Astro.props;
+
+// TODO: Remplacer MAUTIC_FORM_ID par l'ID réel du formulaire Mautic
+const MAUTIC_FORM_ID = 'MAUTIC_FORM_ID';
+const MAUTIC_URL = 'https://mautic.abdelouahebfarhi.com'; // TODO: vérifier l'URL Mautic
+---
+
+{variant === 'hero' && (
+  <div class="bg-blue-700 text-white rounded-xl p-6">
+    <h2 class="text-xl font-bold mb-2">Restez informé</h2>
+    <p class="text-blue-100 mb-4 text-sm">
+      Dernières recommandations cliniques pour médecins généralistes — newsletter gratuite.
+    </p>
+    <div id="mautic-form-hero">
+      <!-- Formulaire Mautic embed -->
+      <script>
+        // Mautic form embed - à activer après configuration
+        // MauticSDKLoaded || (document.write('<script src="{MAUTIC_URL}/media/js/mautic-form.js" type="text/javascript"><\/script>'))
+      </script>
+      <!-- Fallback formulaire HTML simple -->
+      <form action={`${MAUTIC_URL}/form/submit?formId=${MAUTIC_FORM_ID}`} method="POST" class="flex flex-col sm:flex-row gap-2">
+        <input type="hidden" name="mauticform[formId]" value={MAUTIC_FORM_ID} />
+        <input type="hidden" name="mauticform[return]" value="" />
+        <input type="hidden" name="mauticform[formName]" value="newsletter_wiki" />
+        <input
+          type="text"
+          name="mauticform[f_name]"
+          placeholder="Prénom"
+          required
+          class="flex-1 px-3 py-2 rounded text-gray-900 text-sm"
+        />
+        <input
+          type="email"
+          name="mauticform[email]"
+          placeholder="Email professionnel"
+          required
+          class="flex-1 px-3 py-2 rounded text-gray-900 text-sm"
+        />
+        <button type="submit" class="bg-white text-blue-700 font-semibold px-4 py-2 rounded hover:bg-blue-50 text-sm whitespace-nowrap">
+          Je m'abonne
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+
+{variant === 'inline' && (
+  <div class="border border-blue-200 bg-blue-50 rounded-lg p-5 my-8">
+    <p class="font-semibold text-blue-800 mb-1">Cet article vous a été utile ?</p>
+    <p class="text-sm text-gray-600 mb-3">
+      Recevez les prochaines mises à jour cliniques — newsletter pour médecins généralistes.
+    </p>
+    <form action={`${MAUTIC_URL}/form/submit?formId=${MAUTIC_FORM_ID}`} method="POST" class="flex flex-col sm:flex-row gap-2">
+      <input type="hidden" name="mauticform[formId]" value={MAUTIC_FORM_ID} />
+      <input type="hidden" name="mauticform[formName]" value="newsletter_wiki" />
+      <input
+        type="text"
+        name="mauticform[f_name]"
+        placeholder="Prénom"
+        required
+        class="flex-1 px-3 py-2 border border-gray-300 rounded text-sm"
+      />
+      <input
+        type="email"
+        name="mauticform[email]"
+        placeholder="Email"
+        required
+        class="flex-1 px-3 py-2 border border-gray-300 rounded text-sm"
+      />
+      <button type="submit" class="bg-blue-700 text-white font-semibold px-4 py-2 rounded hover:bg-blue-800 text-sm">
+        S'abonner
+      </button>
+    </form>
+  </div>
+)}
+
+{variant === 'sidebar' && (
+  <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+    <p class="font-semibold text-gray-800 text-sm mb-1">📬 Newsletter clinique</p>
+    <p class="text-xs text-gray-500 mb-3">
+      Dernières recommandations pour MG.
+    </p>
+    <form action={`${MAUTIC_URL}/form/submit?formId=${MAUTIC_FORM_ID}`} method="POST" class="flex flex-col gap-2">
+      <input type="hidden" name="mauticform[formId]" value={MAUTIC_FORM_ID} />
+      <input type="hidden" name="mauticform[formName]" value="newsletter_wiki" />
+      <input
+        type="text"
+        name="mauticform[f_name]"
+        placeholder="Prénom"
+        required
+        class="px-3 py-2 border border-gray-300 rounded text-xs"
+      />
+      <input
+        type="email"
+        name="mauticform[email]"
+        placeholder="Email"
+        required
+        class="px-3 py-2 border border-gray-300 rounded text-xs"
+      />
+      <button type="submit" class="bg-blue-700 text-white font-semibold px-3 py-2 rounded hover:bg-blue-800 text-xs">
+        S'abonner
+      </button>
+    </form>
+  </div>
+)}

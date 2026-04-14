@@ -1,0 +1,11 @@
+---
+// Ce composant s'attend à ce que le contenu markdown contienne une section ## Points clés
+// Il est utilisé comme indicateur visuel autour de la section existante dans l'article
+---
+
+<style>
+  /* Rend la section "## Points clés" visuellement distincte */
+  :global(.key-points-wrapper h2) {
+    @apply sr-only;
+  }
+</style>

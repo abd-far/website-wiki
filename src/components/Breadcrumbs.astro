@@ -1,0 +1,32 @@
+---
+export interface Props {
+  items: { label: string; href?: string }[];
+}
+const { items } = Astro.props;
+const siteUrl = 'https://wiki.abdelouahebfarhi.com';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.label,
+    ...(item.href ? { "item": new URL(item.href, siteUrl).href } : {}),
+  })),
+};
+---
+
+<nav aria-label="Fil d'Ariane" class="text-sm text-gray-500 mb-6">
+  {items.map((item, index) => (
+    <span>
+      {index > 0 && <span class="mx-1">›</span>}
+      {item.href
+        ? <a href={item.href} class="hover:text-blue-700">{item.label}</a>
+        : <span class="text-gray-700">{item.label}</span>
+      }
+    </span>
+  ))}
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
