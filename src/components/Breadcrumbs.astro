@@ -17,13 +17,13 @@ const jsonLd = {
 };
 ---
 
-<nav aria-label="Fil d'Ariane" class="text-sm text-gray-500 mb-6">
+<nav aria-label="Fil d'Ariane" class="flex items-center gap-1.5 text-xs text-muted mb-6">
   {items.map((item, index) => (
-    <span>
-      {index > 0 && <span class="mx-1">›</span>}
+    <span class="flex items-center gap-1.5">
+      {index > 0 && <span class="text-border select-none">·</span>}
       {item.href
-        ? <a href={item.href} class="hover:text-blue-700">{item.label}</a>
-        : <span class="text-gray-700">{item.label}</span>
+        ? <a href={item.href} class="hover:text-accent transition-colors">{item.label}</a>
+        : <span class="text-ink">{item.label}</span>
       }
     </span>
   ))}

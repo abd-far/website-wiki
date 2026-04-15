@@ -1,1 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap');
+
 @import "tailwindcss";
+
+@theme {
+  --font-sans: 'Source Sans 3', sans-serif;
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+  --color-ink: #1A1A1A;
+  --color-parchment: #FAF9F6;
+  --color-surface: #F0EDE7;
+  --color-border: #D6D2CB;
+  --color-muted: #6B6560;
+  --color-accent: #C8533A;
+  --color-accent-light: #F5EBE8;
+}
+
+/* Base */
+html {
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--color-parchment);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Prose overrides — typographie encyclopédique */
+.wiki-prose {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--color-ink);
+}
+
+.wiki-prose h2 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-ink);
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.wiki-prose h3 {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-style: italic;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-ink);
+}
+
+.wiki-prose p {
+  margin-bottom: 1.1rem;
+  color: #2A2825;
+}
+
+.wiki-prose ul {
+  padding-left: 1.25rem;
+  margin-bottom: 1.1rem;
+  list-style-type: none;
+}
+
+.wiki-prose ul li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.35rem;
+  color: #2A2825;
+}
+
+.wiki-prose ul li::before {
+  content: '—';
+  position: absolute;
+  left: -0.75rem;
+  color: var(--color-accent);
+  font-weight: 300;
+}
+
+.wiki-prose strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.wiki-prose a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.wiki-prose a:hover {
+  opacity: 0.75;
+}
+
+.wiki-prose blockquote {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+/* Animations page load */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim-1 { animation: fadeUp 0.5s ease both; }
+.anim-2 { animation: fadeUp 0.5s ease 0.1s both; }
+.anim-3 { animation: fadeUp 0.5s ease 0.2s both; }
+.anim-4 { animation: fadeUp 0.5s ease 0.3s both; }
+
+/* Article card hover effect */
+.article-card {
+  border-left: 2px solid transparent;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.article-card:hover {
+  border-left-color: var(--color-accent);
+  background-color: var(--color-surface);
+}
+
+/* Underline animation for nav links */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width 0.2s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}

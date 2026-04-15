@@ -15,65 +15,79 @@ const allArticles = [...allDiabete, ...allAnesthesie]
   title="Wiki Médical — Références cliniques pour médecins généralistes"
   description="Réponses aux questions cliniques des médecins généralistes, basées sur les recommandations 2026 (ADA, HAS, ESC). Diabète, anesthésie, cardiologie."
 >
+
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-blue-700 to-blue-900 text-white py-16 px-4">
-    <div class="max-w-3xl mx-auto text-center">
-      <h1 class="text-3xl font-bold mb-4 leading-tight">
-        Références cliniques pour médecins généralistes
+  <section class="border-b border-border py-20 px-6 anim-1">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-xs tracking-widest uppercase text-muted mb-5">Références cliniques · 2026</p>
+      <h1 class="font-serif text-4xl font-bold text-ink leading-tight mb-5">
+        Questions cliniques<br />pour médecins généralistes
       </h1>
-      <p class="text-blue-100 text-lg mb-8">
-        Réponses aux questions cliniques du quotidien — basées sur les recommandations 2026.
+      <p class="text-lg text-muted mb-10 max-w-xl leading-relaxed">
+        Réponses aux questions du quotidien — basées sur les recommandations
+        ADA 2026, HAS 2024, ESC-EASD 2023.
       </p>
       <NewsletterForm variant="hero" />
     </div>
   </section>
 
-  <!-- Catégories -->
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h2 class="text-xl font-bold text-gray-800 mb-6">Thèmes disponibles</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <a href="/diabete/" class="border border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-md transition group">
-        <div class="text-2xl mb-2">🩺</div>
-        <h3 class="font-bold text-gray-800 group-hover:text-blue-700 mb-1">Diabète & Endocrinologie</h3>
-        <p class="text-sm text-gray-500">Traitement DT2, SGLT2i, GLP-1, tirzepatide, CGM, insuline — ADA 2026, HAS 2024</p>
+  <!-- Spécialités -->
+  <section class="max-w-5xl mx-auto px-6 py-14 anim-2">
+    <p class="text-xs tracking-widest uppercase text-muted mb-6">Spécialités</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border">
+      <a href="/diabete/" class="group bg-parchment p-8 hover:bg-surface transition-colors">
+        <p class="text-xs tracking-widest uppercase text-muted mb-3 group-hover:text-accent transition-colors">Diabète & Endocrinologie</p>
+        <p class="font-serif text-xl text-ink mb-3 leading-snug">
+          Traitement DT2, SGLT2i,<br />GLP-1, tirzepatide, CGM
+        </p>
+        <p class="text-sm text-muted">ADA 2026 · HAS 2024 · ESC-EASD 2023</p>
       </a>
-      <a href="/anesthesie/" class="border border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-md transition group">
-        <div class="text-2xl mb-2">💉</div>
-        <h3 class="font-bold text-gray-800 group-hover:text-blue-700 mb-1">Anesthésie & Obstétrique</h3>
-        <p class="text-sm text-gray-500">Vasopresseurs, rachianesthésie, hypotension spinale, césarienne — recommandations 2026</p>
+      <a href="/anesthesie/" class="group bg-parchment p-8 hover:bg-surface transition-colors">
+        <p class="text-xs tracking-widest uppercase text-muted mb-3 group-hover:text-accent transition-colors">Anesthésie & Obstétrique</p>
+        <p class="font-serif text-xl text-ink mb-3 leading-snug">
+          Vasopresseurs, rachianesthésie,<br />hypotension spinale
+        </p>
+        <p class="text-sm text-muted">Recommandations 2026</p>
       </a>
     </div>
   </section>
 
-  <!-- Derniers articles -->
+  <!-- Dernières publications -->
   {allArticles.length > 0 && (
-    <section class="max-w-5xl mx-auto px-4 pb-12">
-      <h2 class="text-xl font-bold text-gray-800 mb-6">Dernières publications</h2>
-      <div class="space-y-3">
-        {allArticles.map(article => (
+    <section class="max-w-5xl mx-auto px-6 pb-16 anim-3">
+      <div class="flex items-baseline justify-between mb-6">
+        <p class="text-xs tracking-widest uppercase text-muted">Dernières publications</p>
+        <span class="text-xs text-muted">{allArticles.length} article{allArticles.length > 1 ? 's' : ''}</span>
+      </div>
+      <div class="divide-y divide-border">
+        {allArticles.map((article, i) => (
           <a
             href={`/${article.collection}/${article.data.slug ?? article.slug}`}
-            class="block border border-gray-200 rounded-lg p-4 hover:border-blue-400 hover:shadow-sm transition"
+            class="article-card flex items-start gap-6 py-5 px-3 -mx-3 group"
           >
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <p class="font-medium text-gray-800 hover:text-blue-700">{article.data.title}</p>
-                <div class="flex gap-2 mt-1">
-                  <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded capitalize">
-                    {article.collection}
-                  </span>
-                  {article.data.sources.slice(0, 2).map(s => (
-                    <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">{s}</span>
-                  ))}
-                </div>
+            <span class="font-serif text-2xl text-border font-bold tabular-nums mt-0.5 select-none w-8 flex-shrink-0 text-right">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="flex-1 min-w-0">
+              <p class="text-ink group-hover:text-accent transition-colors font-medium leading-snug mb-2">
+                {article.data.title}
+              </p>
+              <div class="flex items-center gap-3 flex-wrap">
+                <span class="text-xs tracking-wide uppercase text-muted border border-border px-2 py-0.5">
+                  {article.collection}
+                </span>
+                {article.data.sources.slice(0, 2).map(s => (
+                  <span class="text-xs text-muted">{s}</span>
+                ))}
               </div>
-              <span class="text-xs text-gray-400 whitespace-nowrap">
-                {article.data.date.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
-              </span>
             </div>
+            <span class="text-xs text-muted whitespace-nowrap flex-shrink-0">
+              {article.data.date.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
+            </span>
           </a>
         ))}
       </div>
     </section>
   )}
+
 </BaseLayout>

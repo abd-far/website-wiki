@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 export interface Props {
   title: string;
   description?: string;
@@ -20,6 +22,10 @@ const canonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
     <link rel="canonical" href={canonical} />
     <title>{title} — Wiki Médical</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -30,10 +36,8 @@ const canonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
     <!-- Sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- JSON-LD structuré -->
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
-    <!-- Organisation JSON-LD global -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -47,17 +51,21 @@ const canonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
       }
     })} />
   </head>
-  <body class="bg-white text-gray-900 font-sans">
+  <body class="bg-parchment text-ink font-sans min-h-screen flex flex-col">
+
     <!-- Navigation -->
-    <header class="border-b border-gray-200 bg-white sticky top-0 z-10">
-      <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="/" class="font-semibold text-blue-700 text-lg hover:text-blue-800">
+    <header class="border-b border-border bg-parchment sticky top-0 z-10">
+      <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+        <a href="/" class="font-serif text-lg text-ink hover:text-accent transition-colors tracking-tight">
           Wiki Médical
         </a>
-        <nav class="flex gap-6 text-sm text-gray-600">
-          <a href="/diabete/" class="hover:text-blue-700">Diabète</a>
-          <a href="/anesthesie/" class="hover:text-blue-700">Anesthésie</a>
-          <a href="/s-abonner" class="bg-blue-700 text-white px-3 py-1 rounded hover:bg-blue-800 transition">
+        <nav class="flex items-center gap-7">
+          <a href="/diabete/" class="nav-link text-sm text-muted hover:text-ink transition-colors">Diabète</a>
+          <a href="/anesthesie/" class="nav-link text-sm text-muted hover:text-ink transition-colors">Anesthésie</a>
+          <a
+            href="/s-abonner"
+            class="text-xs tracking-widest uppercase border border-ink text-ink px-4 py-1.5 hover:bg-ink hover:text-parchment transition-colors"
+          >
             S'abonner
           </a>
         </nav>
@@ -65,26 +73,34 @@ const canonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
     </header>
 
     <!-- Contenu principal -->
-    <main>
+    <main class="flex-1">
       <slot />
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 mt-16 py-8 text-center text-sm text-gray-500">
-      <div class="max-w-5xl mx-auto px-4">
-        <p class="mb-2">
-          <strong>Dr. Abdelouaheb Farhi</strong> — Médecin praticien
-        </p>
-        <p class="mb-4 text-xs">
-          Ce site est une ressource de référence clinique pour les professionnels de santé.
-          Les informations sont basées sur les recommandations officielles et ne remplacent pas le jugement clinique.
-        </p>
-        <p>
-          <a href="/s-abonner" class="text-blue-700 hover:underline">S'abonner à la newsletter</a>
-          &nbsp;·&nbsp;
-          <a href="https://abdelouahebfarhi.com" class="text-blue-700 hover:underline">abdelouahebfarhi.com</a>
-        </p>
+    <footer class="border-t border-border mt-20 py-10">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="flex flex-col sm:flex-row justify-between gap-8">
+          <div>
+            <p class="font-serif text-ink mb-2">Dr. Abdelouaheb Farhi</p>
+            <p class="text-xs text-muted leading-relaxed max-w-xs">
+              Ressource de référence clinique pour les professionnels de santé.
+              Les informations sont basées sur les recommandations officielles
+              et ne remplacent pas le jugement clinique.
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 text-sm">
+            <a href="/s-abonner" class="text-muted hover:text-accent transition-colors">Newsletter clinique</a>
+            <a href="/diabete/" class="text-muted hover:text-accent transition-colors">Diabète</a>
+            <a href="/anesthesie/" class="text-muted hover:text-accent transition-colors">Anesthésie</a>
+            <a href="https://abdelouahebfarhi.com" class="text-muted hover:text-accent transition-colors">abdelouahebfarhi.com</a>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-border text-xs text-muted">
+          © {new Date().getFullYear()} Dr. Abdelouaheb Farhi
+        </div>
       </div>
     </footer>
+
   </body>
 </html>
