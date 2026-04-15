@@ -1,7 +1,7 @@
 # Content Tracker — wiki.abdelouahebfarhi.com
 
 Dernière mise à jour : 2026-04-15  
-Articles publiés : 21  
+Articles publiés : 28  
 Sources interrogées : 2  
 
 ---
@@ -11,7 +11,7 @@ Sources interrogées : 2
 | Notebook | ID | Thème | Articles générés | Dernière session |
 |----------|----|-------|-----------------|-----------------|
 | diabete-2026 | `584bcd82-2e37-4f76-8a8a-614999995537` | Diabète/Endocrinologie | 1 | 2026-04-14 |
-| hypotension-anesthesie | `c5dba7f6-26d1-4ec5-8260-71f29577fb94` | Anesthésie/Obstétrique | 20 | 2026-04-15 |
+| hypotension-anesthesie | `c5dba7f6-26d1-4ec5-8260-71f29577fb94` | Anesthésie/Obstétrique | 27 | 2026-04-15 |
 
 ---
 
@@ -20,7 +20,7 @@ Sources interrogées : 2
 | Catégorie | Nb articles | Dernière publication |
 |-----------|------------|---------------------|
 | diabete | 1 | 2026-04-14 |
-| anesthesie | 20 | 2026-04-15 |
+| anesthesie | 27 | 2026-04-15 |
 
 ---
 
